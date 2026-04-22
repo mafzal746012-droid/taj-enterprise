@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Order - Taj Enterprise</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 40px 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+    .card {
+      background: #1e293b;
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid #334155;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    h1 { color: #22c55e; margin-bottom: 20px; text-align: center; }
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo i { font-size: 2rem; color: #22c55e; }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: #0f172a;
+      color: white;
+      font-size: 1rem;
+    }
+    button {
+      background: #22c55e;
+      color: #0f172a;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .order-details {
+      margin-top: 20px;
+      background: #0f172a;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #22c55e;
+    }
+    .status-pending { color: #facc15; font-weight: bold; }
+    .status-accepted { color: #22c55e; font-weight: bold; }
+    .status-rejected { color: #ef4444; font-weight: bold; }
+    .status-delivered { color: #3b82f6; font-weight: bold; }
+    .error { color: #ef4444; margin-top: 10px; text-align: center; }
+    hr { border-color: #334155; margin: 15px 0; }
+    .back-link { display: block; text-align: center; margin-top: 20px; color: #94a3b8; text-decoration: none; }
+    .back-link:hover { color: #22c55e; }
+    .loading { color: #22c55e; text-align: center; margin: 10px 0; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="logo">
+      <i class="fas fa-store"></i>
+      <h1>Track Your Order</h1>
+    </div>
+    <input type="text" id="orderNumber" placeholder="Order Number (e.g., 2025041915302212)" autocomplete="off">
+    <input type="tel" id="phone" placeholder="Phone Number (used at checkout)" autocomplete="off">
+    <button id="trackBtn">Track Order</button>
+    <div id="result"></div>
+    <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Store</a>
+  </div>
+</div>
+
+<script>
+  document.getElementById('trackBtn').addEventListener('click', async function() {
+    const orderNumber = document.getElementById('orderNumber').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const resultDiv = document.getElementById('result');
+    
+    if (!orderNumber || !phone) {
+      resultDiv.innerHTML = '<div class="error">Please enter both Order Number and Phone Number</div>';
+      return;
+    }
+    
+    resultDiv.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Checking...</div>';
+    
+    try {
+      const res = await fetch('/api/order-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderNumber, phone })
+      });
+      const data = await res.json();
+      if (data.success) {
+        const statusClass = `status-${data.status}`;
+        const statusText = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+        let itemsHtml = '<ul style="margin-top:10px; margin-left:20px;">';
+        data.items.forEach(item => {
+          itemsHtml += `<li>${escapeHtml(item.name)} x${item.qty}</li>`;
+        });
+        itemsHtml += '</ul>';
+        
+        let statusMessage = '';
+        if (data.status === 'delivered') {
+          statusMessage = '<p><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Your order has been delivered. Thank you for shopping with us!</p>';
+        } else if (data.status === 'accepted') {
+          statusMessage = '<p><i class="fas fa-truck" style="color:#22c55e;"></i> Your order is on the way. Will be delivered as per the slot.</p>';
+        } else if (data.status === 'rejected') {
+          statusMessage = '<p><i class="fas fa-times-circle" style="color:#ef4444;"></i> Your order was rejected. Please contact support.</p>';
+        } else {
+          statusMessage = '<p><i class="fas fa-clock" style="color:#facc15;"></i> Your order is pending review. We will update you soon.</p>';
+        }
+        
+        resultDiv.innerHTML = `
+          <div class="order-details">
+            <p><strong>Order #:</strong> ${escapeHtml(data.orderNumber)}</p>
+            <p><strong>Status:</strong> <span class="${statusClass}">${statusText}</span></p>
+            <p><strong>Order Date:</strong> ${new Date(data.created_at).toLocaleString()}</p>
+            <p><strong>Items:</strong> ${itemsHtml}</p>
+            <p><strong>Total:</strong> ₹${data.total}</p>
+            <p><strong>Delivery Slot:</strong> ${escapeHtml(data.delivery_slot)}</p>
+            ${statusMessage}
+          </div>
+        `;
+      } else {
+        resultDiv.innerHTML = `<div class="error">${escapeHtml(data.error || 'No order found with those details')}</div>`;
+      }
+    } catch (err) {
+      console.error(err);
+      resultDiv.innerHTML = '<div class="error">Server error. Please try again later.</div>';
+    }
+  });
+  
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+</script>
+</body>
+</html>

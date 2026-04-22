@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Taj Enterprise | Fresh Milk & Dairy Delivery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">
+        <i class="fas fa-store"></i> 
+        <div>
+          <span class="brand-green">Taj Enterprise</span>
+          <span class="tagline">Fresh Dairy Products Daily</span>
+        </div>
+      </div>
+      <div class="search-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="search" class="search-input" placeholder="Search milk, dahi, paneer..." onkeyup="searchProducts()">
+      </div>
+      <div class="cart-icon-mobile" onclick="toggleCartSidebar()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCountBadge">0</span>
+      </div>
+      <!-- Track Order Link -->
+      <div class="track-link">
+        <a href="/track-order.html"><i class="fas fa-search"></i> Track Order</a>
+      </div>
+    </div>
+    <!-- Hero Description -->
+    <div class="hero-description container">
+      <p>✨ Experience the pure taste of authentic Branded Products like creamy milk, curd, paneer & more – delivered fresh every morning. ✨</p>
+    </div>
+  </header>
+
+  <!-- Category Pills -->
+  <div class="categories-wrapper">
+    <div class="container categories">
+      <button class="cat-btn active" onclick="filterCategory('all')">All</button>
+      <button class="cat-btn" onclick="filterCategory('milk')"><i class="fas fa-tint"></i> Milk</button>
+      <button class="cat-btn" onclick="filterCategory('dahi')"><i class="fas fa-egg"></i> Dahi</button>
+      <button class="cat-btn" onclick="filterCategory('paneer')"><i class="fas fa-cheese"></i> Paneer</button>
+      <button class="cat-btn" onclick="filterCategory('others')"><i class="fas fa-cookie-bite"></i> Others</button>
+    </div>
+  </div>
+
+  <!-- Main Content: Products Grid + Cart Sidebar -->
+  <div class="container main-layout">
+    <div class="products-section">
+      <div id="products" class="products-grid"></div>
+    </div>
+
+    <!-- Cart Sidebar (Desktop) -->
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h3><i class="fas fa-shopping-bag"></i> Your Cart</h3>
+        <button class="close-cart" onclick="toggleCartSidebar()">&times;</button>
+      </div>
+      <div class="cart-body">
+        <ul id="cart" class="cart-list"></ul>
+        <div id="emptyCartMsg" class="empty-cart-msg">Your cart is empty</div>
+      </div>
+      <div class="cart-footer">
+        <div class="delivery-preview">
+          <i class="fas fa-truck"></i> <span id="deliveryPreview"></span>
+        </div>
+        <div class="cart-total" id="cartTotalDisplay">₹0</div>
+        <button class="checkout-btn" onclick="scrollToCheckout()">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Cart Button (Mobile) -->
+  <div id="floatingCart" class="floating-cart" onclick="toggleCartSidebar()">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="floatingCartSummary">0 items | ₹0</span>
+  </div>
+
+  <!-- Checkout Section -->
+  <div class="checkout-section" id="checkoutSection">
+    <div class="container">
+      <h2><i class="fas fa-clipboard-list"></i> Delivery & Payment</h2>
+      <div class="checkout-grid">
+        <div class="delivery-form">
+          <h3>Delivery Details</h3>
+          <input type="text" id="name" placeholder="Full Name *" required>
+          <input type="tel" id="phone" placeholder="Phone Number *" required>
+          <textarea id="address" rows="2" placeholder="Complete Address *"></textarea>
+          <input type="text" id="city" placeholder="City *" value="Kolkata">
+          <input type="text" id="pincode" placeholder="PIN Code *" required>
+          <input type="text" id="landmark" placeholder="Landmark (Optional)">
+        </div>
+        <div class="payment-box">
+          <h3>Payment</h3>
+          <div class="qr-container">
+            <img src="qr.jpg" alt="UPI QR Code" id="qrImage" onerror="this.src='https://placehold.co/200x200?text=UPI+QR'">
+            <p><strong>UPI ID:</strong> 7003761094@ybl</p>
+            <p class="payment-note">Scan QR or use UPI ID to pay</p>
+          </div>
+          <button id="confirmPaymentBtn" class="pay-btn" onclick="confirmPayment()">
+            <i class="fas fa-check-circle"></i> I have paid
+          </button>
+          <div id="paymentStatus" class="payment-status"></div>
+        </div>
+      </div>
+
+      <!-- Updated Terms & Delivery Policy with delay disclaimer -->
+      <div class="terms-box">
+        <h3>Terms & Delivery Policy</h3>
+        <ul>
+          <li><i class="fas fa-clock"></i> Order before 3PM → Next morning (7–10 AM)</li>
+          <li><i class="fas fa-clock"></i> Order 3PM–10PM → Next evening (4–7 PM)</li>
+          <li><i class="fas fa-clock"></i> Order after 10PM → Day after tomorrow morning</li>
+          <li><i class="fas fa-map-marker-alt"></i> Delivery within 1KM radius (Pincodes: 700024, 700023, 700026)</li>
+          <li><i class="fas fa-rupee-sign"></i> Minimum order ₹200</li>
+          <li><i class="fas fa-truck"></i> <strong>Delivery may be delayed due to traffic, weather, or unforeseen circumstances. We will notify you of any delay via WhatsApp.</strong></li>
+          <li><i class="fas fa-exchange-alt"></i> Returns/refunds accepted only for damaged or incorrect products – must be reported within 30 minutes of delivery.</li>
+          <li><i class="fas fa-ban"></i> Order may be rejected if product is out of stock or delivery is not feasible – full refund will be processed.</li>
+        </ul>
+        <label class="terms-check">
+          <input type="checkbox" id="terms"> I accept the terms and conditions
+        </label>
+      </div>
+
+      <button id="placeOrderBtn" class="place-order-btn" onclick="placeOrder()">
+        <i class="fas fa-check-double"></i> Place Order
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeSuccessModal()">&times;</span>
+      <i class="fas fa-check-circle success-icon"></i>
+      <h2>Order Placed Successfully!</h2>
+      <p>Your order will be delivered on <strong id="deliverySlot"></strong></p>
+      <p>A WhatsApp confirmation has been sent.</p>
+      <p>You can track your order status <a href="/track-order.html">here</a>.</p>
+      <button onclick="closeSuccessModal()">Continue Shopping</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
