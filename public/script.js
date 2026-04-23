@@ -143,7 +143,7 @@ window.placeOrder = async function() {
   if (total < 200) return alert("Minimum order amount is ₹200.");
 
   const pincode = document.getElementById("pincode").value.trim();
-  const allowed = ["700024", "700023", "700026"];
+  const allowed = ["700024"];
   if (!allowed.includes(pincode)) return alert("Delivery only within 1KM (pincodes: 700024, 700023, 700026).");
 
   const name = document.getElementById("name").value.trim();
