@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Special Offer - Taj Enterprise</title>
+  <meta property="og:title" content="Taj Enterprise - Fresh Dairy Products Delivered Daily!">
+  <meta property="og:description" content="Get fresh Amul milk, curd, paneer & more delivered to your doorstep. Order today! 🥛✨">
+  <meta property="og:image" content="https://taj-enterprise-production.up.railway.app/images/Gold_500ml.jpg">
+  <meta property="og:url" content="https://taj-enterprise-production.up.railway.app/ad.html">
+  <meta property="og:type" content="website">
+  <meta name="description" content="Fresh dairy products delivered daily. Order now and get fresh milk, curd, paneer at your doorstep!">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    .container { max-width: 500px; margin: 0 auto; padding: 20px; }
+    
+    /* Header */
+    .header { text-align: center; margin-bottom: 25px; }
+    .logo-icon { font-size: 3rem; color: #22c55e; margin-bottom: 10px; }
+    .brand { font-size: 1.8rem; font-weight: 800; color: #22c55e; }
+    .tagline { font-size: 0.8rem; color: #94a3b8; margin-top: 5px; }
+    
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border-radius: 24px;
+      padding: 30px 20px;
+      text-align: center;
+      margin-bottom: 25px;
+      color: #0f172a;
+    }
+    .hero-banner h1 { font-size: 1.6rem; margin-bottom: 10px; }
+    .hero-banner p { font-size: 0.9rem; opacity: 0.9; }
+    .discount-badge {
+      background: #0f172a;
+      color: #22c55e;
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    
+    /* Offer Cards */
+    .offer-card {
+      background: #1e293b;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid #22c55e;
+    }
+    .offer-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+    .offer-desc { font-size: 0.85rem; color: #94a3b8; margin-bottom: 10px; }
+    .offer-price { color: #facc15; font-weight: bold; font-size: 1.2rem; }
+    
+    /* Product Grid */
+    .products-showcase {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .product-show {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #334155;
+    }
+    .product-show img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .product-show-name { font-size: 0.75rem; font-weight: 500; }
+    .product-show-price { font-size: 0.7rem; color: #facc15; }
+    
+    /* CTA Buttons */
+    .cta-button {
+      display: block;
+      background: #22c55e;
+      color: #0f172a;
+      text-align: center;
+      padding: 16px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 20px 0;
+      transition: transform 0.2s;
+    }
+    .cta-button:hover { transform: scale(1.02); background: #16a34a; }
+    .whatsapp-share {
+      background: #25D366;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    /* Info Box */
+    .info-box {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 15px;
+      margin: 15px 0;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    .info-box i { color: #22c55e; margin-right: 8px; }
+    
+    /* Footer */
+    .footer { text-align: center; font-size: 0.7rem; color: #64748b; margin-top: 25px; }
+    
+    /* Share Buttons */
+    .share-buttons {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .share-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .share-wa { background: #25D366; color: white; }
+    .share-fb { background: #1877F2; color: white; }
+    .share-copy { background: #334155; color: white; }
+    
+    @media (max-width: 450px) {
+      .container { padding: 15px; }
+      .hero-banner h1 { font-size: 1.3rem; }
+      .products-showcase { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- Header -->
+  <div class="header">
+    <i class="fas fa-store logo-icon"></i>
+    <div class="brand">Taj Enterprise</div>
+    <div class="tagline">Fresh Dairy Products Daily</div>
+  </div>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <h1>🥛 Fresh Delivery! 🥚</h1>
+    <p>Get fresh Amul milk, curd, paneer & more delivered to your doorstep</p>
+    <div class="discount-badge">✨ Free Delivery on ₹200+ ✨</div>
+  </div>
+
+  <!-- Offers -->
+  <div class="offer-card">
+    <div class="offer-title">🍼 Morning Delivery</div>
+    <div class="offer-desc">Order before 3PM → Next morning (7-10 AM)</div>
+  </div>
+  <div class="offer-card">
+    <div class="offer-title">🌙 Evening Delivery</div>
+    <div class="offer-desc">Order 3PM-10PM → Next evening (4-7 PM)</div>
+  </div>
+
+  <!-- Popular Products -->
+  <div class="products-showcase">
+    <div class="product-show">
+      <img src="images/Gold_500ml.jpg" alt="Amul Gold" onerror="this.src='https://placehold.co/100x100?text=Milk'">
+      <div class="product-show-name">Amul Gold 500ml</div>
+      <div class="product-show-price">₹35</div>
+    </div>
+    <div class="product-show">
+      <img src="images/Taaza_1L.jpg" alt="Amul Taaza" onerror="this.src='https://placehold.co/100x100?text=Milk'">
+      <div class="product-show-name">Amul Taaza 1L</div>
+      <div class="product-show-price">₹57</div>
+    </div>
+    <div class="product-show">
+      <img src="images/MastiDahi_200g.jpg" alt="Masti Dahi" onerror="this.src='https://placehold.co/100x100?text=Curd'">
+      <div class="product-show-name">Masti Dahi 200g</div>
+      <div class="product-show-price">₹24</div>
+    </div>
+    <div class="product-show">
+      <img src="images/Paneer_200g.jpg" alt="Paneer" onerror="this.src='https://placehold.co/100x100?text=Paneer'">
+      <div class="product-show-name">Paneer 200g</div>
+      <div class="product-show-price">₹91</div>
+    </div>
+  </div>
+
+  <!-- Main CTA -->
+  <a href="/" class="cta-button"><i class="fas fa-shopping-cart"></i> 🛒 ORDER NOW</a>
+
+  <!-- Info Box -->
+  <div class="info-box">
+    <p><i class="fas fa-map-marker-alt"></i> Delivery within 1KM (Pincodes: 700024, 700023, 700026)</p>
+    <p style="margin-top: 8px;"><i class="fas fa-rupee-sign"></i> Minimum order ₹200</p>
+    <p style="margin-top: 8px;"><i class="fab fa-whatsapp"></i> Order via WhatsApp: 7003761094</p>
+  </div>
+
+  <!-- Share Buttons -->
+  <div class="share-buttons">
+    <a href="https://wa.me/917003761094?text=Hi%2C%20I%20want%20to%20order%20from%20Taj%20Enterprise" class="share-btn share-wa" target="_blank">
+      <i class="fab fa-whatsapp"></i> Order
+    </a>
+    <a href="https://api.whatsapp.com/send?text=*Taj%20Enterprise*%0A%0AFresh%20dairy%20products%20delivered%20daily!%0A%0A👉%20Order%20now%3A%20https%3A%2F%2Ftaj-enterprise-production.up.railway.app%0A%0A🥛%20Fresh%20milk%20%7C%20🍛%20Fresh%20curd%20%7C%20🧀%20Paneer" class="share-btn share-wa" target="_blank">
+      <i class="fab fa-whatsapp"></i> Share
+    </a>
+  </div>
+
+  <!-- Direct WhatsApp Message Template -->
+  <div class="info-box">
+    <p style="font-size: 0.75rem; margin-bottom: 8px;"><strong>📱 Send this message to your friends:</strong></p>
+    <p style="background: #0f172a; padding: 10px; border-radius: 12px; font-size: 0.7rem; color: #94a3b8;">
+      "🍼 *Taj Enterprise* - Fresh dairy products delivered daily! 🥛<br>
+      🛒 Order now: https://taj-enterprise-production.up.railway.app<br>
+      🚚 Free delivery on ₹200+ | Delivery within 1KM"
+    </p>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 Taj Enterprise | Fresh Dairy Products</p>
+    <p>Visit our store: <a href="/" style="color: #22c55e;">taj-enterprise-production.up.railway.app</a></p>
+  </div>
+
+</div>
+</body>
+</html>
