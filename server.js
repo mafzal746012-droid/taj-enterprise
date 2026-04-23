@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
 
 // Database path
 const dataDir = process.env.DATA_PATH || './';
@@ -107,6 +106,35 @@ function generateOrderNumber() {
   const random = String(Math.floor(Math.random() * 100)).padStart(2, '0');
   return `${year}${month}${day}${hours}${minutes}${seconds}${random}`;
 }
+
+// ---------- Static Files & HTML Routes ----------
+// Serve static files from public directory
+app.use(express.static('public'));
+
+// Explicit routes for HTML pages
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/admin.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+app.get('/track-order.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'track-order.html'));
+});
+
+app.get('/promo.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'promo.html'));
+});
+
+app.get('/ad.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'ad.html'));
+});
 
 // ---------- API Routes ----------
 app.get('/api/products', (req, res) => {
@@ -214,6 +242,7 @@ app.post('/api/admin-login', (req, res) => {
   }
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
